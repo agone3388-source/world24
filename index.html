@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>전국 힐링 테라피 네트워크</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>전국 출장 테라피 네트워크</title>
   <style>
     body {
       margin: 0;
       font-family: 'Noto Sans KR', sans-serif;
       background-color: #000;
       color: #fff;
-      scroll-behavior: smooth;
     }
 
     header {
       background-color: #111;
       text-align: center;
-      padding: 60px 20px;
+      padding: 50px 20px;
     }
 
     header h1 {
-      font-size: 2.8em;
+      font-size: 2.5em;
       color: #ff6600;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     header p {
       color: #ccc;
-      font-size: 1.1em;
     }
 
     section {
-      padding: 60px 20px;
-      text-align: center;
+      padding: 40px 20px;
       max-width: 1200px;
       margin: auto;
+      text-align: center;
     }
 
-    .region-buttons {
+    h2 {
+      color: #ff6600;
+      margin-bottom: 20px;
+    }
+
+    .region-list,
+    .subregion-list {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -45,29 +49,33 @@
       margin-top: 20px;
     }
 
-    .region-buttons button {
+    button {
       background: none;
       border: 1px solid #ff6600;
       color: #ff6600;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-size: 1em;
+      padding: 10px 15px;
       border-radius: 5px;
+      cursor: pointer;
       transition: all 0.3s;
     }
 
-    .region-buttons button:hover,
-    .region-buttons button.active {
+    button:hover,
+    button.active {
       background-color: #ff6600;
       color: #000;
     }
 
-    .region-content {
+    .subregion-list {
       display: none;
-      margin-top: 40px;
+      margin-top: 20px;
     }
 
-    .region-content.active {
+    .subregion-list.active {
+      display: flex;
+    }
+
+    .profiles {
+      margin-top: 40px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -77,161 +85,135 @@
     .profile-card {
       background-color: #111;
       border: 1px solid #333;
-      border-radius: 15px;
-      padding: 15px;
-      width: 250px;
+      border-radius: 10px;
+      width: 230px;
       text-align: center;
-      transition: all 0.3s ease;
+      padding: 15px;
+      transition: 0.3s;
     }
 
     .profile-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+      box-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
     }
 
     .profile-card img {
       width: 100%;
-      height: 220px;
+      height: 200px;
       object-fit: cover;
-      border-radius: 10px;
-    }
-
-    .profile-info h3 {
-      color: #ff944d;
-      margin: 10px 0 5px;
-    }
-
-    .profile-info p {
-      color: #ccc;
-      font-size: 0.9em;
-      margin: 0;
-    }
-
-    .contact {
-      background-color: #111;
-      padding: 50px 20px;
-      text-align: center;
-    }
-
-    .contact h2 {
-      color: #ff6600;
-      margin-bottom: 20px;
-    }
-
-    .contact a {
-      display: inline-block;
-      background-color: #ff6600;
-      color: #000;
-      text-decoration: none;
-      padding: 12px 25px;
-      border-radius: 5px;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
-    .contact a:hover {
-      background-color: #ffa64d;
+      border-radius: 8px;
     }
 
     footer {
-      background-color: #000;
       text-align: center;
-      padding: 20px;
+      background-color: #111;
       color: #666;
-      font-size: 0.9em;
+      padding: 20px;
     }
 
     @media (max-width: 600px) {
-      header h1 { font-size: 2em; }
-      .profile-card { width: 90%; }
+      .profile-card {
+        width: 90%;
+      }
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>전국 출장 테라피 네트워크</h1>
+    <p>대한민국 어디서나 믿을 수 있는 힐링 전문가</p>
+  </header>
 
-<header>
-  <h1>전국 힐링 테라피 네트워크</h1>
-  <p>당신의 일상에 편안함을 더합니다.</p>
-</header>
+  <section>
+    <h2>지역 선택</h2>
+    <div class="region-list" id="region-list"></div>
 
-<section id="regions">
-  <h2>지역별 힐링 전문가 보기</h2>
-  <div class="region-buttons">
-    <button class="active" onclick="showRegion('seoul')">서울</button>
-    <button onclick="showRegion('gyeonggi')">경기</button>
-    <button onclick="showRegion('incheon')">인천</button>
-    <button onclick="showRegion('busan')">부산</button>
-    <button onclick="showRegion('daegu')">대구</button>
-    <button onclick="showRegion('daejeon')">대전</button>
-    <button onclick="showRegion('gwangju')">광주</button>
-    <button onclick="showRegion('jeju')">제주</button>
-  </div>
+    <div id="subregion-container"></div>
 
-  <!-- 서울 -->
-  <div id="seoul" class="region-content active">
-    <div class="profile-card">
-      <img src="https://via.placeholder.com/250x220?text=서울+힐링전문가1" alt="">
-      <div class="profile-info">
-        <h3>김하늘</h3>
-        <p>마음안정 테라피</p>
-      </div>
-    </div>
-    <div class="profile-card">
-      <img src="https://via.placeholder.com/250x220?text=서울+힐링전문가2" alt="">
-      <div class="profile-info">
-        <h3>이서윤</h3>
-        <p>심신이완 테라피</p>
-      </div>
-    </div>
-  </div>
+    <div class="profiles" id="profile-container"></div>
+  </section>
 
-  <!-- 경기 -->
-  <div id="gyeonggi" class="region-content">
-    <div class="profile-card">
-      <img src="https://via.placeholder.com/250x220?text=경기+힐링전문가1" alt="">
-      <div class="profile-info">
-        <h3>박민정</h3>
-        <p>림프순환 전문가</p>
-      </div>
-    </div>
-    <div class="profile-card">
-      <img src="https://via.placeholder.com/250x220?text=경기+힐링전문가2" alt="">
-      <div class="profile-info">
-        <h3>최다인</h3>
-        <p>스트레스 완화 테라피</p>
-      </div>
-    </div>
-  </div>
+  <footer>
+    <p>© 2025 전국 출장 테라피 네트워크</p>
+  </footer>
 
-  <!-- 부산 -->
-  <div id="busan" class="region-content">
-    <div class="profile-card">
-      <img src="https://via.placeholder.com/250x220?text=부산+힐링전문가1" alt="">
-      <div class="profile-info">
-        <h3>정해인</h3>
-        <p>근육이완 & 명상</p>
-      </div>
-    </div>
-  </div>
-</section>
+  <script>
+    const regions = {
+      "서울": ["강남", "서초", "마포", "송파", "종로"],
+      "경기": ["수원", "안양", "안산", "용인", "성남"],
+      "인천": ["남동", "연수", "부평", "계양"],
+      "부산": ["해운대", "수영", "남구", "연제"],
+      "대구": ["수성", "중구", "달서", "북구"],
+      "대전": ["유성", "서구", "중구"],
+      "광주": ["북구", "서구", "남구"],
+      "울산": ["남구", "중구", "동구"],
+      "세종": ["조치원", "어진", "고운"],
+      "강원": ["춘천", "원주", "강릉"],
+      "충북": ["청주", "충주", "제천"],
+      "충남": ["천안", "공주", "아산"],
+      "전북": ["전주", "군산", "익산"],
+      "전남": ["여수", "순천", "목포"],
+      "경북": ["포항", "구미", "경주"],
+      "경남": ["창원", "진주", "김해"],
+      "제주": ["제주시", "서귀포"]
+    };
 
-<section class="contact">
-  <h2>문의 및 상담</h2>
-  <a href="#">문의하기</a>
-</section>
+    const profiles = {};
 
-<footer>
-  <p>전국 힐링 테라피 네트워크 © 2025</p>
-</footer>
+    // 임시 가짜 프로필 자동 생성
+    Object.keys(regions).forEach(region => {
+      regions[region].forEach(sub => {
+        profiles[sub] = Array.from({ length: 3 }, (_, i) => ({
+          name: `${sub} 테라피스트 ${i + 1}`,
+          desc: "전문 힐링 & 피로 회복 전문가",
+          img: `https://via.placeholder.com/230x200?text=${sub}+${i + 1}`
+        }));
+      });
+    });
 
-<script>
-  function showRegion(regionId) {
-    document.querySelectorAll('.region-content').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.region-buttons button').forEach(b => b.classList.remove('active'));
-    document.getElementById(regionId).classList.add('active');
-    event.target.classList.add('active');
-  }
-</script>
+    const regionList = document.getElementById("region-list");
+    const subregionContainer = document.getElementById("subregion-container");
+    const profileContainer = document.getElementById("profile-container");
 
+    Object.keys(regions).forEach(region => {
+      const btn = document.createElement("button");
+      btn.textContent = region;
+      btn.onclick = () => showSubregions(region);
+      regionList.appendChild(btn);
+
+      const subDiv = document.createElement("div");
+      subDiv.id = region;
+      subDiv.className = "subregion-list";
+
+      regions[region].forEach(sub => {
+        const sbtn = document.createElement("button");
+        sbtn.textContent = sub;
+        sbtn.onclick = () => showProfiles(sub);
+        subDiv.appendChild(sbtn);
+      });
+
+      subregionContainer.appendChild(subDiv);
+    });
+
+    function showSubregions(region) {
+      document.querySelectorAll(".subregion-list").forEach(list => list.classList.remove("active"));
+      document.getElementById(region)?.classList.add("active");
+      profileContainer.innerHTML = "";
+    }
+
+    function showProfiles(subregion) {
+      profileContainer.innerHTML = "";
+      profiles[subregion]?.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "profile-card";
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+        `;
+        profileContainer.appendChild(card);
+      });
+    }
+  </script>
 </body>
 </html>
