@@ -1,346 +1,305 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>킹콩준출장마사지</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>킹콩준출장마사지</title>
+  <style>
     body {
-        margin: 0;
-        font-family: "Noto Sans KR", sans-serif;
-        background-color: #0b0b12;
-        color: #f5f5f5;
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #000;
+      color: #f5f5f5;
+      margin: 0;
+      padding: 0;
     }
 
     header {
-        text-align: center;
-        padding: 40px 10px 20px;
-        background-color: #0b0b12;
-        position: sticky;
-        top: 0;
-        z-index: 10;
+      text-align: center;
+      padding: 50px 20px;
+      background-color: #000;
     }
 
     h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        background: linear-gradient(90deg, #ffcc80, #ffb84d, #ff9900);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: shimmer 4s infinite linear;
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #c9a46a, #ffcc80, #c9a46a);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 6s infinite linear;
     }
 
-    @keyframes shimmer {
-        0% { background-position: -200px 0; }
-        100% { background-position: 200px 0; }
+    @keyframes shine {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
     }
 
     nav {
-        background-color: #111;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 10px 0;
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 10px 0;
     }
 
-    nav button {
-        background: transparent;
-        border: 2px solid #ffb84d;
-        color: #ffb84d;
-        font-size: 1rem;
-        margin: 5px;
-        padding: 8px 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s;
+    nav a {
+      color: #f5f5f5;
+      text-decoration: none;
+      padding: 15px 25px;
+      font-weight: 600;
+      border-radius: 5px;
     }
 
-    nav button:hover, nav button.active {
-        background: #ffb84d;
-        color: #0b0b12;
+    nav a:hover, nav a.active {
+      background-color: #ff7f00;
+      color: #000;
     }
 
-    main {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 20px;
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
     }
 
-    .tab {
-        display: none;
-        animation: fadeIn 0.5s ease;
-    }
-    .tab.active {
-        display: block;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* 지역 및 프로필 카드 */
-    .region-list, .subregion-list {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 20px;
+    /* 지역 스타일 */
+    .region {
+      background-color: #111;
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid #222;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      font-weight: bold;
     }
 
-    .region, .subregion {
-        background: #1c1c24;
-        color: #ffb84d;
-        border: none;
-        padding: 10px 14px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s;
+    .region:hover {
+      background-color: #1a1a1a;
     }
 
-    .region:hover, .subregion:hover {
-        background: #ffb84d;
-        color: #0b0b12;
+    .sub-region {
+      display: none;
+      padding: 10px 20px;
+      background-color: #1b1b1b;
+      border-left: 4px solid #ff7f00;
+      margin-top: 5px;
+      border-radius: 5px;
     }
 
-    .profiles {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
+    .sub-region.active {
+      display: block;
     }
 
-    .card {
-        background: #1a1a22;
-        border-radius: 10px;
-        overflow: hidden;
-        width: 230px;
-        text-align: center;
-        transition: transform 0.3s;
+    .sub-region-item {
+      background-color: #222;
+      margin: 8px 0;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: 0.3s;
     }
 
-    .card:hover {
-        transform: translateY(-5px);
+    .sub-region-item:hover {
+      background-color: #333;
     }
 
-    .card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
+    /* 하위 테라피스트 */
+    .therapist {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
     }
 
-    .card h3 {
-        color: #ffb84d;
-        margin: 10px 0 5px;
-    }
-
-    .card p {
-        font-size: 0.9rem;
-        color: #ccc;
-        padding-bottom: 10px;
+    .therapist img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #ff7f00;
+      margin-right: 10px;
     }
 
     /* 코스 소개 */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background: #1a1a22;
-        border-radius: 10px;
-        overflow: hidden;
+    .course {
+      background: linear-gradient(145deg, #111 0%, #1a1a1a 100%);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 0 20px rgba(255, 127, 0, 0.15);
+      border: 1px solid #222;
+      transition: all 0.3s ease;
     }
-    th, td {
-        border-bottom: 1px solid #333;
-        padding: 12px;
-        text-align: center;
+
+    .course:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(255, 127, 0, 0.3);
     }
-    th {
-        background: #ffb84d;
-        color: #0b0b12;
+
+    .course h3 {
+      font-size: 1.5rem;
+      color: #ff7f00;
+      margin-bottom: 10px;
+    }
+
+    .course p {
+      margin: 5px 0;
+      font-size: 1rem;
+      color: #ddd;
     }
 
     /* 공지사항 */
-    .notice {
-        background: #1a1a22;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        overflow: hidden;
+    .notice-item {
+      background-color: #111;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border-left: 3px solid #ff7f00;
+      position: relative;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    .notice-header {
-        padding: 15px;
-        cursor: pointer;
-        background: #222;
-        color: #ffb84d;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+
+    .notice-item:hover {
+      background-color: #1a1a1a;
     }
-    .notice-header:hover {
-        background: #333;
+
+    .notice-item span {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      font-size: 1.3rem;
+      color: #ff7f00;
     }
+
     .notice-content {
-        display: none;
-        padding: 15px;
-        background: #1a1a22;
-        border-top: 1px solid #333;
-        color: #ccc;
+      display: none;
+      padding-top: 10px;
+      color: #ccc;
     }
 
     footer {
-        text-align: center;
-        padding: 15px;
-        color: #888;
-        background: #0b0b12;
-        font-size: 0.9rem;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      background-color: #111;
+      color: #777;
     }
 
-    @media (max-width: 600px) {
-        .card { width: 90%; }
+    @media screen and (max-width: 600px) {
+      .therapist img { width: 50px; height: 50px; }
+      .course { padding: 20px; }
+      nav a { padding: 10px 15px; }
     }
-</style>
+  </style>
 </head>
 <body>
-
-<header>
+  <header>
     <h1>킹콩준출장마사지</h1>
-</header>
+    <nav>
+      <a href="#region">지역별 안내</a>
+      <a href="#courses">코스 소개</a>
+      <a href="#notice">공지사항</a>
+    </nav>
+  </header>
 
-<nav>
-    <button class="active" onclick="showTab('region-tab', this)">지역별 테라피스트</button>
-    <button onclick="showTab('course-tab', this)">코스 소개</button>
-    <button onclick="showTab('notice-tab', this)">공지사항</button>
-    <button onclick="showTab('contact-tab', this)">문의하기</button>
-</nav>
+  <section id="region">
+    <h2>지역별 안내</h2>
 
-<main>
-    <!-- 지역별 탭 -->
-    <div id="region-tab" class="tab active">
-        <div class="region-list" id="regionList"></div>
-        <div class="subregion-list" id="subregionList"></div>
-        <div class="profiles" id="profiles"></div>
+    <div class="region" onclick="toggleRegion('gyeonggi')">경기도</div>
+    <div id="gyeonggi" class="sub-region">
+      <div class="sub-region-item">수원</div>
+      <div class="sub-region-item">안산</div>
+      <div class="sub-region-item">안양</div>
     </div>
 
-    <!-- 코스 소개 -->
-    <div id="course-tab" class="tab">
-        <h2>코스 소개</h2>
-        <table>
-            <tr><th>코스명</th><th>서비스 내용</th><th>소요 시간</th><th>가격</th></tr>
-            <tr><td>A코스</td><td>전신 릴렉싱 마사지</td><td>60분</td><td>100,000원</td></tr>
-            <tr><td>B코스</td><td>아로마 오일 마사지</td><td>90분</td><td>150,000원</td></tr>
-            <tr><td>C코스</td><td>스포츠 & 피로회복 코스</td><td>120분</td><td>180,000원</td></tr>
-            <tr><td>D코스</td><td>프리미엄 맞춤 케어</td><td>150분</td><td>220,000원</td></tr>
-        </table>
+    <div class="region" onclick="toggleRegion('jeonbuk')">전라북도</div>
+    <div id="jeonbuk" class="sub-region">
+      <div class="sub-region-item">전주</div>
+      <div class="sub-region-item">군산</div>
+      <div class="sub-region-item">익산</div>
     </div>
 
-    <!-- 공지사항 -->
-    <div id="notice-tab" class="tab">
-        <h2>공지사항</h2>
-        <div class="notice">
-            <div class="notice-header" onclick="toggleNotice(this)">
-                📢 신규 지점 오픈 안내 <span>+</span>
-            </div>
-            <div class="notice-content">
-                서울 강남, 경기 수원 신규 지점이 오픈되었습니다. 많은 이용 바랍니다.
-            </div>
-        </div>
-        <div class="notice">
-            <div class="notice-header" onclick="toggleNotice(this)">
-                💬 예약 관련 안내 <span>+</span>
-            </div>
-            <div class="notice-content">
-                예약은 최소 1시간 전에 가능합니다. 바쁜 시간대에는 조기 마감될 수 있습니다.
-            </div>
-        </div>
+    <div class="region" onclick="toggleRegion('busan')">부산광역시</div>
+    <div id="busan" class="sub-region">
+      <div class="sub-region-item">해운대</div>
+      <div class="sub-region-item">서면</div>
+      <div class="sub-region-item">남포동</div>
+    </div>
+  </section>
+
+  <section id="courses">
+    <h2>코스 소개</h2>
+
+    <div class="course">
+      <h3>A코스 - 기본 관리</h3>
+      <p>시간: 60분</p>
+      <p>가격: 100,000원</p>
+      <p>서비스: 전신 기본 테라피 + 어깨 & 목 집중</p>
     </div>
 
-    <!-- 문의 -->
-    <div id="contact-tab" class="tab">
-        <h2>문의하기</h2>
-        <p>📞 전화: 010-1234-5678</p>
-        <p>💬 카카오톡: <a href="#" style="color:#ffb84d;">@킹콩준출장마사지</a></p>
-        <p>📧 이메일: kingkongjun@massage.com</p>
+    <div class="course">
+      <h3>B코스 - 피로 해소</h3>
+      <p>시간: 90분</p>
+      <p>가격: 150,000원</p>
+      <p>서비스: 아로마 관리 + 전신 릴렉스</p>
     </div>
-</main>
 
-<footer>
+    <div class="course">
+      <h3>C코스 - 프리미엄 힐링</h3>
+      <p>시간: 120분</p>
+      <p>가격: 200,000원</p>
+      <p>서비스: 아로마 + 스톤테라피 + 두피 릴렉스</p>
+    </div>
+
+    <div class="course">
+      <h3>D코스 - VIP 풀케어</h3>
+      <p>시간: 150분</p>
+      <p>가격: 250,000원</p>
+      <p>서비스: 프리미엄 풀바디 관리 + 맞춤형 테라피</p>
+    </div>
+  </section>
+
+  <section id="notice">
+    <h2>공지사항</h2>
+
+    <div class="notice-item" onclick="toggleNotice(this)">
+      <strong>신규 회원 이벤트 안내</strong>
+      <span>+</span>
+      <div class="notice-content">지금 신규 회원 가입 시 10% 할인 쿠폰을 드립니다.</div>
+    </div>
+
+    <div class="notice-item" onclick="toggleNotice(this)">
+      <strong>운영 시간 변경 안내</strong>
+      <span>+</span>
+      <div class="notice-content">운영 시간이 오전 10시 ~ 새벽 3시로 변경되었습니다.</div>
+    </div>
+
+    <div class="notice-item" onclick="toggleNotice(this)">
+      <strong>예약 시 주의사항</strong>
+      <span>+</span>
+      <div class="notice-content">예약 30분 전 취소 시 위약금이 발생할 수 있습니다.</div>
+    </div>
+  </section>
+
+  <footer>
     <p>© 2025 킹콩준출장마사지</p>
-</footer>
+  </footer>
 
-<script>
-const regions = {
-    "서울": ["강남", "서초", "마포", "종로", "송파"],
-    "경기": ["수원", "안양", "안산", "성남", "용인"],
-    "부산": ["해운대", "수영", "연제", "사하", "북구"],
-    "전북": ["전주", "군산", "익산"],
-    "전남": ["여수", "순천", "목포"]
-};
-
-const profilesData = {};
-
-for (const region in regions) {
-    regions[region].forEach(sub => {
-        profilesData[sub] = Array.from({length:3}, (_,i)=>({
-            name: `${sub} 테라피스트 ${i+1}`,
-            desc: "전문 힐링 & 피로회복 마사지 전문가",
-            img: `https://via.placeholder.com/230x200?text=${sub}+${i+1}`
-        }));
-    });
-}
-
-const regionList = document.getElementById("regionList");
-const subregionList = document.getElementById("subregionList");
-const profiles = document.getElementById("profiles");
-
-for (const r in regions) {
-    const btn = document.createElement("button");
-    btn.className = "region";
-    btn.textContent = r;
-    btn.onclick = () => showSubregions(r);
-    regionList.appendChild(btn);
-}
-
-function showSubregions(region) {
-    subregionList.innerHTML = "";
-    profiles.innerHTML = "";
-    regions[region].forEach(sub => {
-        const btn = document.createElement("button");
-        btn.className = "subregion";
-        btn.textContent = sub;
-        btn.onclick = () => showProfiles(sub);
-        subregionList.appendChild(btn);
-    });
-}
-
-function showProfiles(sub) {
-    profiles.innerHTML = "";
-    profilesData[sub].forEach(p => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `<img src="${p.img}" alt="${p.name}">
-                          <h3>${p.name}</h3>
-                          <p>${p.desc}</p>`;
-        profiles.appendChild(card);
-    });
-}
-
-function showTab(id, btn) {
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
-    document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-}
-
-function toggleNotice(el) {
-    const content = el.nextElementSibling;
-    const symbol = el.querySelector("span");
-    if (content.style.display === "block") {
-        content.style.display = "none";
-        symbol.textContent = "+";
-    } else {
-        content.style.display = "block";
-        symbol.textContent = "-";
+  <script>
+    function toggleRegion(id) {
+      const region = document.getElementById(id);
+      region.classList.toggle('active');
     }
-}
-</script>
+
+    function toggleNotice(el) {
+      const content = el.querySelector('.notice-content');
+      const sign = el.querySelector('span');
+      const open = content.style.display === 'block';
+      document.querySelectorAll('.notice-content').forEach(c => c.style.display = 'none');
+      document.querySelectorAll('.notice-item span').forEach(s => s.textContent = '+');
+      if (!open) {
+        content.style.display = 'block';
+        sign.textContent = '-';
+      }
+    }
+  </script>
 </body>
 </html>
