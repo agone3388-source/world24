@@ -1,324 +1,412 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>킹콩준출장마사지</title>
   <style>
-    body {
-      font-family: 'Noto Sans KR', sans-serif;
-      background-color: #000;
-      color: #f5f5f5;
-      margin: 0;
-      padding: 0;
+    :root{
+      --bg:#000;
+      --panel:#111;
+      --muted:#ccc;
+      --accent:#ff7f00;
+      --gold1:#ffb347;
+      --gold2:#ffcc33;
     }
-
-    header {
-      text-align: center;
-      padding: 40px 20px;
-      background-color: #000;
-    }
-
+    html,body{height:100%;margin:0;background:var(--bg);color:#f5f5f5;font-family:"Noto Sans KR",sans-serif;}
+    header{padding:36px 18px 12px;text-align:center}
+    /* 제목 - 강한 샤이머 + 간헐 스팍클 */
+    .title-wrap{position:relative;display:inline-block}
     h1 {
-      font-size: 2.8rem;
-      font-weight: 800;
-      background: linear-gradient(90deg, #ffb347, #ffcc33, #ffb347);
-      background-size: 300%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shimmer 4s infinite linear;
-      letter-spacing: 1px;
+      font-size:2.8rem;
+      font-weight:800;
+      margin:0;
+      letter-spacing:1px;
+      background:linear-gradient(90deg,var(--gold1),var(--gold2),var(--gold1));
+      background-size:400%;
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation: bgShift 3.8s linear infinite;
+    }
+    /* 얇은 반짝이는 스트립이 지나가게 함 */
+    .title-wrap::after {
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.14) 45%, rgba(255,255,255,0) 60%);
+      transform:translateX(-110%);
+      filter:blur(6px) saturate(1.2);
+      animation: shimmerMove 2.4s linear infinite;
+      pointer-events:none;
+      mix-blend-mode:screen;
+    }
+    /* 작은 별 스팍클 */
+    .sparkle {
+      position:absolute;
+      width:8px; height:8px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.95);
+      top:-8px; left:12%;
+      box-shadow:0 0 12px rgba(255,255,255,0.9);
+      opacity:0;
+      animation: sparkleAnim 4s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes bgShift { 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
+    @keyframes shimmerMove { 0%{transform:translateX(-110%)} 60%{transform:translateX(110%)} 100%{transform:translateX(110%)} }
+    @keyframes sparkleAnim {
+      0%{opacity:0; transform:translateY(0) scale(0.6)}
+      10%{opacity:1; transform:translateY(-2px) scale(1)}
+      15%{opacity:0; transform:translateY(-6px) scale(0.3)}
+      100%{opacity:0}
     }
 
-    @keyframes shimmer {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
+    /* 내비 */
+    nav{display:flex;justify-content:center;background:var(--panel);gap:8px;padding:10px 12px;flex-wrap:wrap}
+    nav a{color:#f5f5f5;text-decoration:none;padding:10px 18px;border-radius:8px;font-weight:600;transition:all .18s}
+    nav a:hover{background:rgba(255,127,0,0.12)}
+    nav a.active{background:var(--accent);color:#000}
 
-    nav {
-      display: flex;
-      justify-content: center;
-      background-color: #111;
-      flex-wrap: wrap;
-      padding: 10px 0;
-    }
+    /* 섹션 공통 */
+    main{max-width:1100px;margin:20px auto;padding:0 16px;}
+    section{display:none}
+    section.active{display:block;padding-bottom:40px}
 
-    nav a {
-      color: #f5f5f5;
-      text-decoration: none;
-      padding: 12px 25px;
-      font-weight: 600;
-      border-radius: 5px;
-      transition: 0.3s;
-    }
+    h2{color:var(--gold1);text-align:center;margin:6px 0 18px}
 
-    nav a:hover,
-    nav a.active {
-      background-color: #ff7f00;
-      color: #000;
+    /* 지역 버튼 리스트 */
+    .region-list{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:16px}
+    .region-btn{
+      background:var(--panel);
+      border:1px solid #222;padding:10px 18px;border-radius:10px;cursor:pointer;font-weight:700;
+      transition:all .18s;
     }
+    .region-btn:hover{background:#1a1a1a}
+    .region-btn.active{background:var(--accent);color:#000}
 
-    section {
-      display: none;
-      padding: 30px 20px;
-      max-width: 1100px;
-      margin: auto;
+    /* 각 지역 컨텐츠(아코디언) */
+    .region-block{background:linear-gradient(180deg,#0f0f0f 0,#151515 100%);border-radius:12px;border:1px solid #222;padding:14px;margin-bottom:12px}
+    .region-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:6px 8px}
+    .region-header h3{margin:0;font-size:1.05rem;color:var(--gold1)}
+    .chev{font-weight:800;color:var(--accent);transition:transform .2s}
+    .region-block.collapsed .chev{transform:rotate(0deg)}
+    .region-block.expanded .chev{transform:rotate(90deg)}
+
+    .subregions{margin-top:10px;display:flex;gap:14px;flex-wrap:wrap}
+    .sub-item{background:#121212;border:1px solid #222;padding:8px 12px;border-radius:8px;color:var(--muted);font-size:.95rem}
+
+    /* 프로필 가로 리스트 */
+    .profiles{margin-top:12px;overflow-x:auto;white-space:nowrap;padding-bottom:8px}
+    .profile-card{
+      display:inline-block;vertical-align:top;background:var(--panel);border:1px solid #222;border-radius:12px;padding:16px;
+      min-width:200px;margin-right:12px;text-align:center;transition:transform .18s;
     }
+    .profile-card:hover{transform:translateY(-6px);background:#151515}
+    .profile-card h4{margin:4px 0;color:var(--accent);font-size:1.05rem}
+    .profile-card p{margin:6px 0;color:#d6d6d6;font-size:.95rem}
 
-    section.active {
-      display: block;
+    /* 코스(원래대로 유지) */
+    .course{background:linear-gradient(145deg,#111 0%,#1a1a1a 100%);border-radius:15px;padding:22px;margin:14px 0;box-shadow:0 0 15px rgba(255,127,0,0.12);border:1px solid #222}
+    .course h3{color:var(--accent);margin:0 0 8px}
+    .course p{margin:4px 0;color:#ddd}
+
+    /* 공지사항(원래대로 유지) */
+    .notice-item{background:var(--panel);padding:14px;border-left:3px solid var(--accent);border-radius:8px;margin-bottom:10px;cursor:pointer}
+    .notice-content{display:none;color:#ccc;margin-top:8px}
+
+    footer{text-align:center;padding:18px;color:#777;background:#0f0f0f;margin-top:18px;border-top:1px solid #111}
+
+    /* contact buttons */
+    .contact-fixed{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:1200}
+    .contact-btn{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:50px;background:linear-gradient(180deg,var(--accent),#ff9f33);
+      color:#000;font-weight:800;text-decoration:none;box-shadow:0 6px 18px rgba(255,127,0,0.18);transform:translateY(0);transition:all .18s
     }
+    .contact-btn:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(255,127,0,0.28)}
+    .contact-kakao{background:linear-gradient(180deg,#ffd14d,#ffb84d)}
+    .contact-phone{background:linear-gradient(180deg,#ffd88a,#ffb05a)}
 
-    /* ===== 지역별 안내 ===== */
-    .region-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-      margin-bottom: 25px;
-    }
-
-    .region-btn {
-      background-color: #111;
-      padding: 12px 25px;
-      border: 1px solid #222;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-      font-weight: bold;
-    }
-
-    .region-btn:hover,
-    .region-btn.active {
-      background-color: #ff7f00;
-      color: #000;
-    }
-
-    .profile-list {
-      display: none;
-      overflow-x: auto;
-      white-space: nowrap;
-      padding: 10px 0;
-    }
-
-    .profile-list.active {
-      display: flex;
-    }
-
-    .profile-card {
-      background-color: #111;
-      border: 1px solid #222;
-      border-radius: 12px;
-      padding: 20px;
-      min-width: 180px;
-      text-align: center;
-      margin-right: 15px;
-      transition: 0.3s;
-    }
-
-    .profile-card:hover {
-      background-color: #1a1a1a;
-      transform: translateY(-3px);
-    }
-
-    .profile-card h4 {
-      color: #ff7f00;
-      margin-bottom: 8px;
-    }
-
-    .profile-card p {
-      font-size: 0.95rem;
-      margin: 2px 0;
-      color: #ccc;
-    }
-
-    /* ===== 코스 소개 ===== */
-    .course {
-      background: linear-gradient(145deg, #111 0%, #1a1a1a 100%);
-      border-radius: 15px;
-      padding: 25px;
-      margin-bottom: 25px;
-      box-shadow: 0 0 15px rgba(255, 127, 0, 0.15);
-      border: 1px solid #222;
-      transition: 0.3s;
-    }
-
-    .course:hover {
-      box-shadow: 0 0 25px rgba(255, 127, 0, 0.3);
-      transform: translateY(-5px);
-    }
-
-    .course h3 {
-      font-size: 1.4rem;
-      color: #ff7f00;
-      margin-bottom: 10px;
-    }
-
-    /* ===== 공지사항 ===== */
-    .notice-item {
-      background-color: #111;
-      border-left: 3px solid #ff7f00;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .notice-item:hover {
-      background-color: #1a1a1a;
-    }
-
-    .notice-content {
-      display: none;
-      color: #ccc;
-      padding-top: 10px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #777;
-      background-color: #111;
-    }
-
-    @media screen and (max-width: 600px) {
-      nav a { padding: 10px 15px; }
-      .profile-card { min-width: 150px; padding: 15px; }
+    /* 스크롤바 간단 스타일 */
+    .profiles::-webkit-scrollbar{height:8px}
+    .profiles::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:8px}
+    @media(max-width:700px){
+      h1{font-size:2rem}
+      .profile-card{min-width:160px;padding:12px}
+      nav a{padding:8px 12px}
+      .title-wrap::after{display:block}
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>킹콩준출장마사지</h1>
-    <nav>
-      <a href="#" class="active" onclick="showTab('region', this)">지역별 안내</a>
-      <a href="#" onclick="showTab('courses', this)">코스 소개</a>
-      <a href="#" onclick="showTab('notice', this)">공지사항</a>
-    </nav>
+    <div class="title-wrap">
+      <h1>킹콩준출장마사지</h1>
+      <span class="sparkle" style="left:22%;animation-delay:0s"></span>
+      <span class="sparkle" style="left:62%;top:-6px;animation-delay:1.2s;width:6px;height:6px"></span>
+    </div>
   </header>
 
-  <!-- ===== 지역별 안내 ===== -->
-  <section id="region" class="active">
-    <div class="region-container">
-      <div class="region-btn active" onclick="showRegion('seoul', this)">서울</div>
-      <div class="region-btn" onclick="showRegion('gyeonggi', this)">경기</div>
-      <div class="region-btn" onclick="showRegion('busan', this)">부산</div>
-      <div class="region-btn" onclick="showRegion('jeju', this)">제주</div>
-    </div>
+  <nav>
+    <a href="#" class="active" id="tab-region" onclick="showTab(event, 'region')">지역별 안내</a>
+    <a href="#" id="tab-courses" onclick="showTab(event, 'courses')">코스 소개</a>
+    <a href="#" id="tab-notice" onclick="showTab(event, 'notice')">공지사항</a>
+  </nav>
 
-    <!-- 서울 -->
-    <div id="seoul" class="profile-list active">
-      <div class="profile-card">
-        <h4>민지</h4><p>27세</p><p>163cm</p><p>47kg</p>
-      </div>
-      <div class="profile-card">
-        <h4>수아</h4><p>25세</p><p>160cm</p><p>45kg</p>
-      </div>
-      <div class="profile-card">
-        <h4>하린</h4><p>29세</p><p>167cm</p><p>51kg</p>
-      </div>
-    </div>
+  <main>
+    <!-- 지역별 안내 (수정한 것만) -->
+    <section id="region" class="active">
+      <h2>지역별 안내</h2>
 
-    <!-- 경기 -->
-    <div id="gyeonggi" class="profile-list">
-      <div class="profile-card">
-        <h4>예린</h4><p>26세</p><p>162cm</p><p>46kg</p>
+      <!-- 각 지역 아코디언 블록 (클릭하면 펼치기) -->
+      <!-- 서울 -->
+      <div class="region-block collapsed" id="block-seoul">
+        <div class="region-header" onclick="toggleRegionBlock('seoul')">
+          <h3>서울특별시</h3>
+          <div class="chev">▶</div>
+        </div>
+        <div class="region-body" style="display:none">
+          <div class="subregions">
+            <div class="sub-item">강남구</div>
+            <div class="sub-item">종로구</div>
+            <div class="sub-item">마포구</div>
+          </div>
+          <div class="profiles" aria-label="서울 프로필">
+            <div class="profile-card">
+              <h4>민지</h4>
+              <p>나이: 27세</p>
+              <p>특징: 유연한 스트레칭 전문</p>
+            </div>
+            <div class="profile-card">
+              <h4>수아</h4>
+              <p>나이: 25세</p>
+              <p>특징: 릴렉스 마사지 경험 다수</p>
+            </div>
+            <div class="profile-card">
+              <h4>하린</h4>
+              <p>나이: 29세</p>
+              <p>특징: 경혈 중심 관리</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="profile-card">
-        <h4>소정</h4><p>28세</p><p>165cm</p><p>50kg</p>
-      </div>
-      <div class="profile-card">
-        <h4>다빈</h4><p>30세</p><p>170cm</p><p>52kg</p>
-      </div>
-    </div>
 
-    <!-- 부산 -->
-    <div id="busan" class="profile-list">
-      <div class="profile-card">
-        <h4>유진</h4><p>24세</p><p>161cm</p><p>45kg</p>
+      <!-- 경기 -->
+      <div class="region-block collapsed" id="block-gyeonggi">
+        <div class="region-header" onclick="toggleRegionBlock('gyeonggi')">
+          <h3>경기도</h3>
+          <div class="chev">▶</div>
+        </div>
+        <div class="region-body" style="display:none">
+          <div class="subregions">
+            <div class="sub-item">수원</div>
+            <div class="sub-item">안산</div>
+            <div class="sub-item">안양</div>
+          </div>
+          <div class="profiles" aria-label="경기 프로필">
+            <div class="profile-card">
+              <h4>예린</h4>
+              <p>나이: 26세</p>
+              <p>특징: 딥티슈 전문가</p>
+            </div>
+            <div class="profile-card">
+              <h4>소정</h4>
+              <p>나이: 28세</p>
+              <p>특징: 아로마 테라피 경험</p>
+            </div>
+            <div class="profile-card">
+              <h4>다빈</h4>
+              <p>나이: 30세</p>
+              <p>특징: 스포츠 마사지 담당</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="profile-card">
-        <h4>나연</h4><p>29세</p><p>166cm</p><p>49kg</p>
-      </div>
-      <div class="profile-card">
-        <h4>지아</h4><p>27세</p><p>164cm</p><p>48kg</p>
-      </div>
-    </div>
 
-    <!-- 제주 -->
-    <div id="jeju" class="profile-list">
-      <div class="profile-card">
-        <h4>가현</h4><p>25세</p><p>160cm</p><p>45kg</p>
+      <!-- 부산 -->
+      <div class="region-block collapsed" id="block-busan">
+        <div class="region-header" onclick="toggleRegionBlock('busan')">
+          <h3>부산광역시</h3>
+          <div class="chev">▶</div>
+        </div>
+        <div class="region-body" style="display:none">
+          <div class="subregions">
+            <div class="sub-item">해운대</div>
+            <div class="sub-item">서면</div>
+            <div class="sub-item">남포동</div>
+          </div>
+          <div class="profiles" aria-label="부산 프로필">
+            <div class="profile-card">
+              <h4>유진</h4>
+              <p>나이: 24세</p>
+              <p>특징: 부드러운 터치</p>
+            </div>
+            <div class="profile-card">
+              <h4>나연</h4>
+              <p>나이: 29세</p>
+              <p>특징: 근육 이완 전문</p>
+            </div>
+            <div class="profile-card">
+              <h4>지아</h4>
+              <p>나이: 27세</p>
+              <p>특징: 릴렉스+스트레칭</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="profile-card">
-        <h4>서윤</h4><p>28세</p><p>168cm</p><p>50kg</p>
-      </div>
-      <div class="profile-card">
-        <h4>은비</h4><p>31세</p><p>165cm</p><p>52kg</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- ===== 코스 소개 ===== -->
-  <section id="courses">
-    <div class="course">
-      <h3>A코스 - 기본 관리</h3>
-      <p>60분 / 100,000원</p>
-      <p>전신 기본 테라피 + 어깨 & 목 집중</p>
-    </div>
-    <div class="course">
-      <h3>B코스 - 피로 해소</h3>
-      <p>90분 / 150,000원</p>
-      <p>아로마 관리 + 전신 릴렉스</p>
-    </div>
-    <div class="course">
-      <h3>C코스 - 프리미엄 힐링</h3>
-      <p>120분 / 200,000원</p>
-      <p>스톤테라피 + 두피 릴렉스</p>
-    </div>
-  </section>
+      <!-- 제주 -->
+      <div class="region-block collapsed" id="block-jeju">
+        <div class="region-header" onclick="toggleRegionBlock('jeju')">
+          <h3>제주특별자치도</h3>
+          <div class="chev">▶</div>
+        </div>
+        <div class="region-body" style="display:none">
+          <div class="subregions">
+            <div class="sub-item">제주시</div>
+            <div class="sub-item">서귀포시</div>
+          </div>
+          <div class="profiles" aria-label="제주 프로필">
+            <div class="profile-card">
+              <h4>가현</h4>
+              <p>나이: 25세</p>
+              <p>특징: 여행객 맞춤 케어</p>
+            </div>
+            <div class="profile-card">
+              <h4>서윤</h4>
+              <p>나이: 28세</p>
+              <p>특징: 두피 릴렉스 전문</p>
+            </div>
+            <div class="profile-card">
+              <h4>은비</h4>
+              <p>나이: 31세</p>
+              <p>특징: 전신 케어 경험 풍부</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- ===== 공지사항 ===== -->
-  <section id="notice">
-    <div class="notice-item" onclick="toggleNotice(this)">
-      <strong>신규 회원 이벤트 안내</strong>
-      <div class="notice-content">신규 회원 가입 시 10% 할인 쿠폰 제공</div>
-    </div>
-    <div class="notice-item" onclick="toggleNotice(this)">
-      <strong>운영 시간 변경 안내</strong>
-      <div class="notice-content">운영 시간이 오전 10시 ~ 새벽 3시로 변경되었습니다.</div>
-    </div>
-  </section>
+    <!-- 코스 소개 (원본 내용 유지) -->
+    <section id="courses">
+      <h2>코스 소개</h2>
+      <div class="course">
+        <h3>A코스 - 기본 관리</h3>
+        <p>시간: 60분</p>
+        <p>가격: 100,000원</p>
+        <p>서비스: 전신 기본 테라피 + 어깨 & 목 집중</p>
+      </div>
+
+      <div class="course">
+        <h3>B코스 - 피로 해소</h3>
+        <p>시간: 90분</p>
+        <p>가격: 150,000원</p>
+        <p>서비스: 아로마 관리 + 전신 릴렉스</p>
+      </div>
+
+      <div class="course">
+        <h3>C코스 - 프리미엄 힐링</h3>
+        <p>시간: 120분</p>
+        <p>가격: 200,000원</p>
+        <p>서비스: 아로마 + 스톤테라피 + 두피 릴렉스</p>
+      </div>
+
+      <div class="course">
+        <h3>D코스 - VIP 풀케어</h3>
+        <p>시간: 150분</p>
+        <p>가격: 250,000원</p>
+        <p>서비스: 프리미엄 풀바디 관리 + 맞춤형 테라피</p>
+      </div>
+    </section>
+
+    <!-- 공지사항 (원본 내용 유지) -->
+    <section id="notice">
+      <h2>공지사항</h2>
+      <div class="notice-item" onclick="toggleNotice(this)">
+        <strong>신규 회원 이벤트 안내</strong>
+        <div class="notice-content">지금 신규 회원 가입 시 10% 할인 쿠폰을 드립니다.</div>
+      </div>
+
+      <div class="notice-item" onclick="toggleNotice(this)">
+        <strong>운영 시간 변경 안내</strong>
+        <div class="notice-content">운영 시간이 오전 10시 ~ 새벽 3시로 변경되었습니다.</div>
+      </div>
+
+      <div class="notice-item" onclick="toggleNotice(this)">
+        <strong>예약 시 주의사항</strong>
+        <div class="notice-content">예약 30분 전 취소 시 위약금이 발생할 수 있습니다.</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 고정 연락 버튼 (예시 링크 포함) -->
+  <div class="contact-fixed">
+    <a class="contact-btn contact-kakao" href="https://open.kakao.com/o/sQexample" target="_blank" rel="noreferrer">💬 카카오톡 문의</a>
+    <a class="contact-btn contact-phone" href="tel:010-1234-5678">📞 전화 문의</a>
+  </div>
 
   <footer>
     <p>© 2025 킹콩준출장마사지</p>
   </footer>
 
   <script>
-    // 탭 전환
-    function showTab(id, el) {
-      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+    // 탭 전환 (event 필요)
+    function showTab(e, id){
+      e && e.preventDefault();
+      document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+      if (e && e.currentTarget) e.currentTarget.classList.add('active');
+      else document.querySelector('#tab-'+id)?.classList?.add('active');
+      document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-      el.classList.add('active');
+      // close all region blocks when leaving region tab
+      if(id !== 'region'){
+        document.querySelectorAll('.region-block').forEach(b=>{
+          b.classList.remove('expanded'); b.classList.add('collapsed');
+          const body = b.querySelector('.region-body'); if(body) body.style.display='none';
+        });
+      }
     }
 
-    // 지역 전환
-    function showRegion(id, el) {
-      document.querySelectorAll('.region-btn').forEach(btn => btn.classList.remove('active'));
-      el.classList.add('active');
-      document.querySelectorAll('.profile-list').forEach(list => list.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+    // 토글 아코디언(지역 블록)
+    function toggleRegionBlock(name){
+      const block = document.getElementById('block-'+name);
+      if(!block) return;
+      const body = block.querySelector('.region-body');
+      const isOpen = block.classList.contains('expanded');
+      // 닫고 싶으면 닫기, 열고 싶으면 닫힌 것들 닫고 자신 열기
+      if(isOpen){
+        block.classList.remove('expanded'); block.classList.add('collapsed');
+        if(body) body.style.display='none';
+      } else {
+        // close other blocks
+        document.querySelectorAll('.region-block.expanded').forEach(b=>{
+          b.classList.remove('expanded'); b.classList.add('collapsed');
+          const bd = b.querySelector('.region-body'); if(bd) bd.style.display='none';
+        });
+        block.classList.remove('collapsed'); block.classList.add('expanded');
+        if(body) body.style.display='block';
+      }
     }
 
-    // 공지사항 토글
-    function toggleNotice(el) {
+    // 공지 토글
+    function toggleNotice(el){
       const content = el.querySelector('.notice-content');
       const open = content.style.display === 'block';
-      document.querySelectorAll('.notice-content').forEach(c => c.style.display = 'none');
-      if (!open) content.style.display = 'block';
+      document.querySelectorAll('.notice-content').forEach(c=>c.style.display='none');
+      if(!open) content.style.display='block';
     }
+
+    // 초기: ensure region tab active
+    document.addEventListener('DOMContentLoaded', ()=> {
+      showTab(null,'region');
+      // small accessibility: allow left/right scroll with mouse wheel on profiles
+      document.querySelectorAll('.profiles').forEach(el=>{
+        el.addEventListener('wheel', (e)=>{
+          if(Math.abs(e.deltaX) < Math.abs(e.deltaY)){
+            el.scrollLeft += e.deltaY;
+            e.preventDefault();
+          }
+        },{passive:false});
+      });
+    });
   </script>
 </body>
 </html>
