@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전국 출장마사지</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #1a001f;
+            color: #ffffff;
+        }
+
+        header {
+            background-color: #2b0040;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #e0b3ff;
+        }
+
+        nav {
+            background-color: #3b0060;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: #e0b3ff;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+
+        nav button:hover, nav button.active {
+            background-color: #5a0080;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .tab-content.active {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .therapist-card {
+            background-color: #2b0040;
+            border-radius: 15px;
+            padding: 15px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .therapist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .therapist-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .therapist-info {
+            margin-top: 10px;
+        }
+
+        .therapist-info h3 {
+            margin: 5px 0;
+            color: #e6ccff;
+        }
+
+        .therapist-info p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #d9b3ff;
+        }
+
+        footer {
+            background-color: #2b0040;
+            text-align: center;
+            padding: 15px;
+            color: #b380ff;
+            margin-top: 40px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 600px) {
+            nav button {
+                flex: 1 1 100%;
+                text-align: center;
+            }
+
+            .therapist-card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>전국 출장마사지</h1>
+</header>
+
+<nav>
+    <button class="active" onclick="showTab('seoul')">서울</button>
+    <button onclick="showTab('gyeonggi')">경기</button>
+    <button onclick="showTab('busan')">부산</button>
+</nav>
+
+<main>
+    <div id="seoul" class="tab-content active">
+        <div class="therapist-card">
+            <img src="https://via.placeholder.com/250x220?text=Therapist+1" alt="Therapist 1">
+            <div class="therapist-info">
+                <h3>민지</h3>
+                <p>29세</p>
+            </div>
+        </div>
+        <div class="therapist-card">
+            <img src="https://via.placeholder.com/250x220?text=Therapist+2" alt="Therapist 2">
+            <div class="therapist-info">
+                <h3>수아</h3>
+                <p>26세</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="gyeonggi" class="tab-content">
+        <div class="therapist-card">
+            <img src="https://via.placeholder.com/250x220?text=Therapist+3" alt="Therapist 3">
+            <div class="therapist-info">
+                <h3>하은</h3>
+                <p>31세</p>
+            </div>
+        </div>
+        <div class="therapist-card">
+            <img src="https://via.placeholder.com/250x220?text=Therapist+4" alt="Therapist 4">
+            <div class="therapist-info">
+                <h3>유리</h3>
+                <p>27세</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="busan" class="tab-content">
+        <div class="therapist-card">
+            <img src="https://via.placeholder.com/250x220?text=Therapist+5" alt="Therapist 5">
+            <div class="therapist-info">
+                <h3>다현</h3>
+                <p>25세</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2025 전국출장마사지. All rights reserved.</p>
+</footer>
+
+<script>
+    function showTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        event.target.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
