@@ -15,18 +15,19 @@
 
     header {
       text-align: center;
-      padding: 50px 20px 30px;
+      padding: 40px 20px;
       background-color: #000;
     }
 
     h1 {
       font-size: 2.8rem;
-      font-weight: 700;
-      background: linear-gradient(90deg, #ffb84d, #ffe7b3, #ffb84d);
-      background-size: 200%;
+      font-weight: 800;
+      background: linear-gradient(90deg, #ffb347, #ffcc33, #ffb347);
+      background-size: 300%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: shimmer 4s infinite linear;
+      letter-spacing: 1px;
     }
 
     @keyframes shimmer {
@@ -35,9 +36,9 @@
     }
 
     nav {
-      background-color: #111;
       display: flex;
       justify-content: center;
+      background-color: #111;
       flex-wrap: wrap;
       padding: 10px 0;
     }
@@ -45,21 +46,22 @@
     nav a {
       color: #f5f5f5;
       text-decoration: none;
-      padding: 15px 25px;
+      padding: 12px 25px;
       font-weight: 600;
       border-radius: 5px;
       transition: 0.3s;
     }
 
-    nav a:hover, nav a.active {
+    nav a:hover,
+    nav a.active {
       background-color: #ff7f00;
       color: #000;
     }
 
     section {
       display: none;
-      padding: 40px 20px;
-      max-width: 1000px;
+      padding: 30px 20px;
+      max-width: 1100px;
       margin: auto;
     }
 
@@ -67,152 +69,122 @@
       display: block;
     }
 
-    h2 {
-      color: #ffb84d;
-      margin-bottom: 20px;
-      text-align: center;
+    /* ===== 지역별 안내 ===== */
+    .region-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 25px;
     }
 
-    .region {
+    .region-btn {
       background-color: #111;
-      padding: 18px;
-      border-radius: 8px;
+      padding: 12px 25px;
       border: 1px solid #222;
-      margin-bottom: 10px;
-      font-size: 1.2rem;
+      border-radius: 8px;
       cursor: pointer;
+      transition: 0.3s;
       font-weight: bold;
-      transition: 0.3s;
     }
 
-    .region:hover {
-      background-color: #1a1a1a;
+    .region-btn:hover,
+    .region-btn.active {
+      background-color: #ff7f00;
+      color: #000;
     }
 
-    .sub-region {
+    .profile-list {
       display: none;
-      padding: 10px 20px;
-      background-color: #1b1b1b;
-      border-left: 4px solid #ff7f00;
-      margin-top: 5px;
-      border-radius: 5px;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px 0;
     }
 
-    .sub-region.active {
-      display: block;
+    .profile-list.active {
+      display: flex;
     }
 
-    .sub-region-item {
-      background-color: #222;
-      margin: 8px 0;
-      padding: 10px 15px;
-      border-radius: 5px;
+    .profile-card {
+      background-color: #111;
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 20px;
+      min-width: 180px;
+      text-align: center;
+      margin-right: 15px;
       transition: 0.3s;
     }
 
-    .sub-region-item:hover {
-      background-color: #333;
+    .profile-card:hover {
+      background-color: #1a1a1a;
+      transform: translateY(-3px);
     }
 
+    .profile-card h4 {
+      color: #ff7f00;
+      margin-bottom: 8px;
+    }
+
+    .profile-card p {
+      font-size: 0.95rem;
+      margin: 2px 0;
+      color: #ccc;
+    }
+
+    /* ===== 코스 소개 ===== */
     .course {
       background: linear-gradient(145deg, #111 0%, #1a1a1a 100%);
       border-radius: 15px;
       padding: 25px;
       margin-bottom: 25px;
-      box-shadow: 0 0 20px rgba(255, 127, 0, 0.15);
+      box-shadow: 0 0 15px rgba(255, 127, 0, 0.15);
       border: 1px solid #222;
-      transition: all 0.3s ease;
+      transition: 0.3s;
     }
 
     .course:hover {
-      transform: translateY(-5px);
       box-shadow: 0 0 25px rgba(255, 127, 0, 0.3);
+      transform: translateY(-5px);
     }
 
     .course h3 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       color: #ff7f00;
       margin-bottom: 10px;
     }
 
-    .course p {
-      margin: 5px 0;
-      font-size: 1rem;
-      color: #ddd;
-    }
-
+    /* ===== 공지사항 ===== */
     .notice-item {
       background-color: #111;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 10px;
       border-left: 3px solid #ff7f00;
-      position: relative;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 10px;
       cursor: pointer;
-      transition: 0.3s;
+      position: relative;
     }
 
     .notice-item:hover {
       background-color: #1a1a1a;
     }
 
-    .notice-item span {
-      position: absolute;
-      right: 15px;
-      top: 15px;
-      font-size: 1.3rem;
-      color: #ff7f00;
-    }
-
     .notice-content {
       display: none;
-      padding-top: 10px;
       color: #ccc;
+      padding-top: 10px;
     }
 
     footer {
       text-align: center;
       padding: 20px;
-      font-size: 0.9rem;
-      background-color: #111;
       color: #777;
-    }
-
-    /* 고정 연락 버튼 */
-    .contact-buttons {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      z-index: 1000;
-    }
-
-    .contact-buttons a {
-      background-color: rgba(255, 127, 0, 0.9);
-      color: #000;
-      text-decoration: none;
-      padding: 12px 18px;
-      border-radius: 50px;
-      font-weight: bold;
-      font-size: 0.95rem;
-      box-shadow: 0 0 10px rgba(255,127,0,0.3);
-      transition: all 0.3s ease;
-      text-align: center;
-    }
-
-    .contact-buttons a:hover {
-      background-color: #ff9f33;
-      box-shadow: 0 0 15px rgba(255,127,0,0.5);
-      transform: translateY(-3px);
+      background-color: #111;
     }
 
     @media screen and (max-width: 600px) {
-      .contact-buttons a {
-        padding: 10px 15px;
-        font-size: 0.9rem;
-      }
+      nav a { padding: 10px 15px; }
+      .profile-card { min-width: 150px; padding: 15px; }
     }
   </style>
 </head>
@@ -220,133 +192,132 @@
   <header>
     <h1>킹콩준출장마사지</h1>
     <nav>
-      <a href="#" class="active" onclick="showTab('region')">지역별 안내</a>
-      <a href="#" onclick="showTab('courses')">코스 소개</a>
-      <a href="#" onclick="showTab('notice')">공지사항</a>
+      <a href="#" class="active" onclick="showTab('region', this)">지역별 안내</a>
+      <a href="#" onclick="showTab('courses', this)">코스 소개</a>
+      <a href="#" onclick="showTab('notice', this)">공지사항</a>
     </nav>
   </header>
 
+  <!-- ===== 지역별 안내 ===== -->
   <section id="region" class="active">
-    <h2>지역별 안내</h2>
-    <div class="region" onclick="toggleRegion('seoul')">서울특별시</div>
-    <div id="seoul" class="sub-region">
-      <div class="sub-region-item">강남구</div>
-      <div class="sub-region-item">종로구</div>
-      <div class="sub-region-item">마포구</div>
+    <div class="region-container">
+      <div class="region-btn active" onclick="showRegion('seoul', this)">서울</div>
+      <div class="region-btn" onclick="showRegion('gyeonggi', this)">경기</div>
+      <div class="region-btn" onclick="showRegion('busan', this)">부산</div>
+      <div class="region-btn" onclick="showRegion('jeju', this)">제주</div>
     </div>
 
-    <div class="region" onclick="toggleRegion('gyeonggi')">경기도</div>
-    <div id="gyeonggi" class="sub-region">
-      <div class="sub-region-item">수원</div>
-      <div class="sub-region-item">성남</div>
-      <div class="sub-region-item">용인</div>
+    <!-- 서울 -->
+    <div id="seoul" class="profile-list active">
+      <div class="profile-card">
+        <h4>민지</h4><p>27세</p><p>163cm</p><p>47kg</p>
+      </div>
+      <div class="profile-card">
+        <h4>수아</h4><p>25세</p><p>160cm</p><p>45kg</p>
+      </div>
+      <div class="profile-card">
+        <h4>하린</h4><p>29세</p><p>167cm</p><p>51kg</p>
+      </div>
     </div>
 
-    <div class="region" onclick="toggleRegion('busan')">부산광역시</div>
-    <div id="busan" class="sub-region">
-      <div class="sub-region-item">해운대</div>
-      <div class="sub-region-item">서면</div>
-      <div class="sub-region-item">남포동</div>
+    <!-- 경기 -->
+    <div id="gyeonggi" class="profile-list">
+      <div class="profile-card">
+        <h4>예린</h4><p>26세</p><p>162cm</p><p>46kg</p>
+      </div>
+      <div class="profile-card">
+        <h4>소정</h4><p>28세</p><p>165cm</p><p>50kg</p>
+      </div>
+      <div class="profile-card">
+        <h4>다빈</h4><p>30세</p><p>170cm</p><p>52kg</p>
+      </div>
     </div>
 
-    <div class="region" onclick="toggleRegion('daegu')">대구광역시</div>
-    <div id="daegu" class="sub-region">
-      <div class="sub-region-item">동성로</div>
-      <div class="sub-region-item">수성구</div>
-      <div class="sub-region-item">달서구</div>
+    <!-- 부산 -->
+    <div id="busan" class="profile-list">
+      <div class="profile-card">
+        <h4>유진</h4><p>24세</p><p>161cm</p><p>45kg</p>
+      </div>
+      <div class="profile-card">
+        <h4>나연</h4><p>29세</p><p>166cm</p><p>49kg</p>
+      </div>
+      <div class="profile-card">
+        <h4>지아</h4><p>27세</p><p>164cm</p><p>48kg</p>
+      </div>
     </div>
 
-    <div class="region" onclick="toggleRegion('gwangju')">광주광역시</div>
-    <div id="gwangju" class="sub-region">
-      <div class="sub-region-item">동구</div>
-      <div class="sub-region-item">서구</div>
-      <div class="sub-region-item">북구</div>
-    </div>
-
-    <div class="region" onclick="toggleRegion('daejeon')">대전광역시</div>
-    <div id="daejeon" class="sub-region">
-      <div class="sub-region-item">유성구</div>
-      <div class="sub-region-item">서구</div>
-      <div class="sub-region-item">중구</div>
-    </div>
-
-    <div class="region" onclick="toggleRegion('jeju')">제주특별자치도</div>
-    <div id="jeju" class="sub-region">
-      <div class="sub-region-item">제주시</div>
-      <div class="sub-region-item">서귀포시</div>
+    <!-- 제주 -->
+    <div id="jeju" class="profile-list">
+      <div class="profile-card">
+        <h4>가현</h4><p>25세</p><p>160cm</p><p>45kg</p>
+      </div>
+      <div class="profile-card">
+        <h4>서윤</h4><p>28세</p><p>168cm</p><p>50kg</p>
+      </div>
+      <div class="profile-card">
+        <h4>은비</h4><p>31세</p><p>165cm</p><p>52kg</p>
+      </div>
     </div>
   </section>
 
+  <!-- ===== 코스 소개 ===== -->
   <section id="courses">
-    <h2>코스 소개</h2>
     <div class="course">
       <h3>A코스 - 기본 관리</h3>
-      <p>시간: 60분</p>
-      <p>가격: 100,000원</p>
-      <p>서비스: 전신 기본 테라피 + 어깨 & 목 집중</p>
+      <p>60분 / 100,000원</p>
+      <p>전신 기본 테라피 + 어깨 & 목 집중</p>
     </div>
     <div class="course">
       <h3>B코스 - 피로 해소</h3>
-      <p>시간: 90분</p>
-      <p>가격: 150,000원</p>
-      <p>서비스: 아로마 관리 + 전신 릴렉스</p>
+      <p>90분 / 150,000원</p>
+      <p>아로마 관리 + 전신 릴렉스</p>
     </div>
     <div class="course">
       <h3>C코스 - 프리미엄 힐링</h3>
-      <p>시간: 120분</p>
-      <p>가격: 200,000원</p>
-      <p>서비스: 아로마 + 스톤테라피 + 두피 릴렉스</p>
+      <p>120분 / 200,000원</p>
+      <p>스톤테라피 + 두피 릴렉스</p>
     </div>
   </section>
 
+  <!-- ===== 공지사항 ===== -->
   <section id="notice">
-    <h2>공지사항</h2>
     <div class="notice-item" onclick="toggleNotice(this)">
       <strong>신규 회원 이벤트 안내</strong>
-      <span>+</span>
-      <div class="notice-content">지금 신규 회원 가입 시 10% 할인 쿠폰을 드립니다.</div>
+      <div class="notice-content">신규 회원 가입 시 10% 할인 쿠폰 제공</div>
     </div>
     <div class="notice-item" onclick="toggleNotice(this)">
       <strong>운영 시간 변경 안내</strong>
-      <span>+</span>
       <div class="notice-content">운영 시간이 오전 10시 ~ 새벽 3시로 변경되었습니다.</div>
     </div>
   </section>
-
-  <!-- 고정 버튼 -->
-  <div class="contact-buttons">
-    <a href="tel:01012345678">📞 전화 문의</a>
-    <a href="https://pf.kakao.com/_yourlink" target="_blank">💬 카카오톡 문의</a>
-  </div>
 
   <footer>
     <p>© 2025 킹콩준출장마사지</p>
   </footer>
 
   <script>
-    function showTab(tabId) {
-      event.preventDefault();
+    // 탭 전환
+    function showTab(id, el) {
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
+      document.getElementById(id).classList.add('active');
       document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-      event.target.classList.add('active');
+      el.classList.add('active');
     }
 
-    function toggleRegion(id) {
-      const region = document.getElementById(id);
-      region.classList.toggle('active');
+    // 지역 전환
+    function showRegion(id, el) {
+      document.querySelectorAll('.region-btn').forEach(btn => btn.classList.remove('active'));
+      el.classList.add('active');
+      document.querySelectorAll('.profile-list').forEach(list => list.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
     }
 
+    // 공지사항 토글
     function toggleNotice(el) {
       const content = el.querySelector('.notice-content');
-      const sign = el.querySelector('span');
       const open = content.style.display === 'block';
       document.querySelectorAll('.notice-content').forEach(c => c.style.display = 'none');
-      document.querySelectorAll('.notice-item span').forEach(s => s.textContent = '+');
-      if (!open) {
-        content.style.display = 'block';
-        sign.textContent = '-';
-      }
+      if (!open) content.style.display = 'block';
     }
   </script>
 </body>
