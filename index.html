@@ -1,337 +1,346 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>전국 출장 테라피 네트워크</title>
-  <style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>킹콩준출장마사지</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
     body {
-      margin: 0;
-      font-family: 'Noto Sans KR', sans-serif;
-      background-color: #000;
-      color: #fff;
+        margin: 0;
+        font-family: "Noto Sans KR", sans-serif;
+        background-color: #0b0b12;
+        color: #f5f5f5;
     }
 
     header {
-      background-color: #111;
-      text-align: center;
-      padding: 50px 20px;
+        text-align: center;
+        padding: 40px 10px 20px;
+        background-color: #0b0b12;
+        position: sticky;
+        top: 0;
+        z-index: 10;
     }
 
-    header h1 {
-      font-size: 2.5em;
-      color: #ff6600;
-      margin-bottom: 10px;
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #ffcc80, #ffb84d, #ff9900);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 4s infinite linear;
     }
 
-    header p {
-      color: #ccc;
+    @keyframes shimmer {
+        0% { background-position: -200px 0; }
+        100% { background-position: 200px 0; }
     }
 
     nav {
-      background-color: #111;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      border-top: 1px solid #222;
-      border-bottom: 1px solid #222;
+        background-color: #111;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 10px 0;
     }
 
     nav button {
-      background: none;
-      border: none;
-      color: #ff6600;
-      padding: 15px 25px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: 0.3s;
+        background: transparent;
+        border: 2px solid #ffb84d;
+        color: #ffb84d;
+        font-size: 1rem;
+        margin: 5px;
+        padding: 8px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
     }
 
-    nav button:hover,
-    nav button.active {
-      background-color: #ff6600;
-      color: #000;
+    nav button:hover, nav button.active {
+        background: #ffb84d;
+        color: #0b0b12;
     }
 
-    section {
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: auto;
-      text-align: center;
+    main {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
     }
 
-    h2 {
-      color: #ff6600;
-      margin-bottom: 20px;
+    .tab {
+        display: none;
+        animation: fadeIn 0.5s ease;
+    }
+    .tab.active {
+        display: block;
     }
 
-    .region-list,
-    .subregion-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
-    button.region,
-    button.subregion {
-      background: none;
-      border: 1px solid #ff6600;
-      color: #ff6600;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.3s;
+    /* 지역 및 프로필 카드 */
+    .region-list, .subregion-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
     }
 
-    button.region:hover,
-    button.region.active,
-    button.subregion:hover,
-    button.subregion.active {
-      background-color: #ff6600;
-      color: #000;
+    .region, .subregion {
+        background: #1c1c24;
+        color: #ffb84d;
+        border: none;
+        padding: 10px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
     }
 
-    .subregion-list {
-      display: none;
-      margin-top: 20px;
-    }
-
-    .subregion-list.active {
-      display: flex;
+    .region:hover, .subregion:hover {
+        background: #ffb84d;
+        color: #0b0b12;
     }
 
     .profiles {
-      margin-top: 40px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
     }
 
-    .profile-card {
-      background-color: #111;
-      border: 1px solid #333;
-      border-radius: 10px;
-      width: 230px;
-      text-align: center;
-      padding: 15px;
-      transition: 0.3s;
+    .card {
+        background: #1a1a22;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 230px;
+        text-align: center;
+        transition: transform 0.3s;
     }
 
-    .profile-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
+    .card:hover {
+        transform: translateY(-5px);
     }
 
-    .profile-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
+    .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
     }
 
-    /* 공지사항 스타일 */
-    .notice-list {
-      max-width: 800px;
-      margin: 30px auto;
-      text-align: left;
+    .card h3 {
+        color: #ffb84d;
+        margin: 10px 0 5px;
     }
 
-    .notice-item {
-      background-color: #111;
-      border: 1px solid #333;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      overflow: hidden;
+    .card p {
+        font-size: 0.9rem;
+        color: #ccc;
+        padding-bottom: 10px;
     }
 
+    /* 코스 소개 */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #1a1a22;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    th, td {
+        border-bottom: 1px solid #333;
+        padding: 12px;
+        text-align: center;
+    }
+    th {
+        background: #ffb84d;
+        color: #0b0b12;
+    }
+
+    /* 공지사항 */
+    .notice {
+        background: #1a1a22;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        overflow: hidden;
+    }
     .notice-header {
-      padding: 15px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #ff6600;
+        padding: 15px;
+        cursor: pointer;
+        background: #222;
+        color: #ffb84d;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-
     .notice-header:hover {
-      background-color: #1a1a1a;
+        background: #333;
     }
-
     .notice-content {
-      display: none;
-      padding: 15px;
-      color: #ccc;
-      background-color: #0a0a0a;
-      border-top: 1px solid #222;
-    }
-
-    .notice-item.active .notice-content {
-      display: block;
-    }
-
-    .plus-icon {
-      font-size: 20px;
-      transition: transform 0.3s;
-    }
-
-    .notice-item.active .plus-icon {
-      transform: rotate(45deg);
+        display: none;
+        padding: 15px;
+        background: #1a1a22;
+        border-top: 1px solid #333;
+        color: #ccc;
     }
 
     footer {
-      text-align: center;
-      background-color: #111;
-      color: #666;
-      padding: 20px;
+        text-align: center;
+        padding: 15px;
+        color: #888;
+        background: #0b0b12;
+        font-size: 0.9rem;
     }
 
     @media (max-width: 600px) {
-      .profile-card {
-        width: 90%;
-      }
+        .card { width: 90%; }
     }
-  </style>
+</style>
 </head>
 <body>
-  <header>
-    <h1>전국 출장 테라피 네트워크</h1>
-    <p>대한민국 어디서나 믿을 수 있는 힐링 전문가</p>
-  </header>
 
-  <nav>
-    <button class="active" onclick="showTab('therapist')">지역별 테라피스트</button>
-    <button onclick="showTab('notice')">공지사항</button>
-  </nav>
+<header>
+    <h1>킹콩준출장마사지</h1>
+</header>
 
-  <!-- 지역별 테라피스트 -->
-  <section id="therapist" class="tab-content active">
-    <h2>지역 선택</h2>
-    <div class="region-list" id="region-list"></div>
-    <div id="subregion-container"></div>
-    <div class="profiles" id="profile-container"></div>
-  </section>
+<nav>
+    <button class="active" onclick="showTab('region-tab', this)">지역별 테라피스트</button>
+    <button onclick="showTab('course-tab', this)">코스 소개</button>
+    <button onclick="showTab('notice-tab', this)">공지사항</button>
+    <button onclick="showTab('contact-tab', this)">문의하기</button>
+</nav>
 
-  <!-- 공지사항 -->
-  <section id="notice" class="tab-content" style="display:none;">
-    <h2>공지사항</h2>
-    <div class="notice-list" id="notice-list">
-      <div class="notice-item">
-        <div class="notice-header" onclick="toggleNotice(this)">
-          <span>📢 신규 지역 서비스 확장 안내</span>
-          <span class="plus-icon">+</span>
-        </div>
-        <div class="notice-content">
-          전국 출장 테라피 네트워크가 2025년 12월부터 강원, 제주 지역 서비스도 오픈합니다.
-        </div>
-      </div>
-      <div class="notice-item">
-        <div class="notice-header" onclick="toggleNotice(this)">
-          <span>✨ 신규 테라피스트 모집 공고</span>
-          <span class="plus-icon">+</span>
-        </div>
-        <div class="notice-content">
-          전국 주요 도시에 힐링 전문가를 모집하고 있습니다. 지원은 고객센터 또는 이메일로 문의해주세요.
-        </div>
-      </div>
-      <div class="notice-item">
-        <div class="notice-header" onclick="toggleNotice(this)">
-          <span>🕒 예약 시스템 점검 안내</span>
-          <span class="plus-icon">+</span>
-        </div>
-        <div class="notice-content">
-          2025년 11월 10일 새벽 2시부터 4시까지 시스템 점검으로 인해 예약이 일시 중단됩니다.
-        </div>
-      </div>
+<main>
+    <!-- 지역별 탭 -->
+    <div id="region-tab" class="tab active">
+        <div class="region-list" id="regionList"></div>
+        <div class="subregion-list" id="subregionList"></div>
+        <div class="profiles" id="profiles"></div>
     </div>
-  </section>
 
-  <footer>
-    <p>© 2025 전국 출장 테라피 네트워크</p>
-  </footer>
+    <!-- 코스 소개 -->
+    <div id="course-tab" class="tab">
+        <h2>코스 소개</h2>
+        <table>
+            <tr><th>코스명</th><th>서비스 내용</th><th>소요 시간</th><th>가격</th></tr>
+            <tr><td>A코스</td><td>전신 릴렉싱 마사지</td><td>60분</td><td>100,000원</td></tr>
+            <tr><td>B코스</td><td>아로마 오일 마사지</td><td>90분</td><td>150,000원</td></tr>
+            <tr><td>C코스</td><td>스포츠 & 피로회복 코스</td><td>120분</td><td>180,000원</td></tr>
+            <tr><td>D코스</td><td>프리미엄 맞춤 케어</td><td>150분</td><td>220,000원</td></tr>
+        </table>
+    </div>
 
-  <script>
-    // 탭 전환
-    function showTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
-      document.getElementById(tabId).style.display = 'block';
-      document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-    }
+    <!-- 공지사항 -->
+    <div id="notice-tab" class="tab">
+        <h2>공지사항</h2>
+        <div class="notice">
+            <div class="notice-header" onclick="toggleNotice(this)">
+                📢 신규 지점 오픈 안내 <span>+</span>
+            </div>
+            <div class="notice-content">
+                서울 강남, 경기 수원 신규 지점이 오픈되었습니다. 많은 이용 바랍니다.
+            </div>
+        </div>
+        <div class="notice">
+            <div class="notice-header" onclick="toggleNotice(this)">
+                💬 예약 관련 안내 <span>+</span>
+            </div>
+            <div class="notice-content">
+                예약은 최소 1시간 전에 가능합니다. 바쁜 시간대에는 조기 마감될 수 있습니다.
+            </div>
+        </div>
+    </div>
 
-    // 공지사항 아코디언
-    function toggleNotice(header) {
-      const item = header.parentElement;
-      item.classList.toggle('active');
-    }
+    <!-- 문의 -->
+    <div id="contact-tab" class="tab">
+        <h2>문의하기</h2>
+        <p>📞 전화: 010-1234-5678</p>
+        <p>💬 카카오톡: <a href="#" style="color:#ffb84d;">@킹콩준출장마사지</a></p>
+        <p>📧 이메일: kingkongjun@massage.com</p>
+    </div>
+</main>
 
-    // 지역 & 테라피스트 로직
-    const regions = {
-      "서울": ["강남", "서초", "마포", "송파", "종로"],
-      "경기": ["수원", "안양", "안산", "용인", "성남"],
-      "부산": ["해운대", "남구", "수영", "연제"],
-      "전북": ["전주", "군산", "익산"],
-      "제주": ["제주시", "서귀포"]
-    };
+<footer>
+    <p>© 2025 킹콩준출장마사지</p>
+</footer>
 
-    const profiles = {};
-    Object.keys(regions).forEach(region => {
-      regions[region].forEach(sub => {
-        profiles[sub] = Array.from({ length: 3 }, (_, i) => ({
-          name: `${sub} 테라피스트 ${i + 1}`,
-          desc: "전문 힐링 & 피로 회복 전문가",
-          img: `https://via.placeholder.com/230x200?text=${sub}+${i + 1}`
+<script>
+const regions = {
+    "서울": ["강남", "서초", "마포", "종로", "송파"],
+    "경기": ["수원", "안양", "안산", "성남", "용인"],
+    "부산": ["해운대", "수영", "연제", "사하", "북구"],
+    "전북": ["전주", "군산", "익산"],
+    "전남": ["여수", "순천", "목포"]
+};
+
+const profilesData = {};
+
+for (const region in regions) {
+    regions[region].forEach(sub => {
+        profilesData[sub] = Array.from({length:3}, (_,i)=>({
+            name: `${sub} 테라피스트 ${i+1}`,
+            desc: "전문 힐링 & 피로회복 마사지 전문가",
+            img: `https://via.placeholder.com/230x200?text=${sub}+${i+1}`
         }));
-      });
     });
+}
 
-    const regionList = document.getElementById("region-list");
-    const subregionContainer = document.getElementById("subregion-container");
-    const profileContainer = document.getElementById("profile-container");
+const regionList = document.getElementById("regionList");
+const subregionList = document.getElementById("subregionList");
+const profiles = document.getElementById("profiles");
 
-    Object.keys(regions).forEach(region => {
-      const btn = document.createElement("button");
-      btn.textContent = region;
-      btn.className = "region";
-      btn.onclick = () => showSubregions(region);
-      regionList.appendChild(btn);
+for (const r in regions) {
+    const btn = document.createElement("button");
+    btn.className = "region";
+    btn.textContent = r;
+    btn.onclick = () => showSubregions(r);
+    regionList.appendChild(btn);
+}
 
-      const subDiv = document.createElement("div");
-      subDiv.id = region;
-      subDiv.className = "subregion-list";
-
-      regions[region].forEach(sub => {
-        const sbtn = document.createElement("button");
-        sbtn.textContent = sub;
-        sbtn.className = "subregion";
-        sbtn.onclick = () => showProfiles(sub);
-        subDiv.appendChild(sbtn);
-      });
-
-      subregionContainer.appendChild(subDiv);
+function showSubregions(region) {
+    subregionList.innerHTML = "";
+    profiles.innerHTML = "";
+    regions[region].forEach(sub => {
+        const btn = document.createElement("button");
+        btn.className = "subregion";
+        btn.textContent = sub;
+        btn.onclick = () => showProfiles(sub);
+        subregionList.appendChild(btn);
     });
+}
 
-    function showSubregions(region) {
-      document.querySelectorAll(".subregion-list").forEach(list => list.classList.remove("active"));
-      document.getElementById(region)?.classList.add("active");
-      profileContainer.innerHTML = "";
-    }
-
-    function showProfiles(subregion) {
-      profileContainer.innerHTML = "";
-      profiles[subregion]?.forEach(p => {
+function showProfiles(sub) {
+    profiles.innerHTML = "";
+    profilesData[sub].forEach(p => {
         const card = document.createElement("div");
-        card.className = "profile-card";
-        card.innerHTML = `
-          <img src="${p.img}" alt="${p.name}">
-          <h3>${p.name}</h3>
-          <p>${p.desc}</p>
-        `;
-        profileContainer.appendChild(card);
-      });
+        card.className = "card";
+        card.innerHTML = `<img src="${p.img}" alt="${p.name}">
+                          <h3>${p.name}</h3>
+                          <p>${p.desc}</p>`;
+        profiles.appendChild(card);
+    });
+}
+
+function showTab(id, btn) {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+}
+
+function toggleNotice(el) {
+    const content = el.nextElementSibling;
+    const symbol = el.querySelector("span");
+    if (content.style.display === "block") {
+        content.style.display = "none";
+        symbol.textContent = "+";
+    } else {
+        content.style.display = "block";
+        symbol.textContent = "-";
     }
-  </script>
+}
+</script>
 </body>
 </html>
