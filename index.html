@@ -28,6 +28,31 @@
       color: #ccc;
     }
 
+    nav {
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: #ff6600;
+      padding: 15px 25px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    nav button:hover,
+    nav button.active {
+      background-color: #ff6600;
+      color: #000;
+    }
+
     section {
       padding: 40px 20px;
       max-width: 1200px;
@@ -49,7 +74,8 @@
       margin-top: 20px;
     }
 
-    button {
+    button.region,
+    button.subregion {
       background: none;
       border: 1px solid #ff6600;
       color: #ff6600;
@@ -59,8 +85,10 @@
       transition: all 0.3s;
     }
 
-    button:hover,
-    button.active {
+    button.region:hover,
+    button.region.active,
+    button.subregion:hover,
+    button.subregion.active {
       background-color: #ff6600;
       color: #000;
     }
@@ -104,6 +132,55 @@
       border-radius: 8px;
     }
 
+    /* 공지사항 스타일 */
+    .notice-list {
+      max-width: 800px;
+      margin: 30px auto;
+      text-align: left;
+    }
+
+    .notice-item {
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .notice-header {
+      padding: 15px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #ff6600;
+    }
+
+    .notice-header:hover {
+      background-color: #1a1a1a;
+    }
+
+    .notice-content {
+      display: none;
+      padding: 15px;
+      color: #ccc;
+      background-color: #0a0a0a;
+      border-top: 1px solid #222;
+    }
+
+    .notice-item.active .notice-content {
+      display: block;
+    }
+
+    .plus-icon {
+      font-size: 20px;
+      transition: transform 0.3s;
+    }
+
+    .notice-item.active .plus-icon {
+      transform: rotate(45deg);
+    }
+
     footer {
       text-align: center;
       background-color: #111;
@@ -124,13 +201,51 @@
     <p>대한민국 어디서나 믿을 수 있는 힐링 전문가</p>
   </header>
 
-  <section>
+  <nav>
+    <button class="active" onclick="showTab('therapist')">지역별 테라피스트</button>
+    <button onclick="showTab('notice')">공지사항</button>
+  </nav>
+
+  <!-- 지역별 테라피스트 -->
+  <section id="therapist" class="tab-content active">
     <h2>지역 선택</h2>
     <div class="region-list" id="region-list"></div>
-
     <div id="subregion-container"></div>
-
     <div class="profiles" id="profile-container"></div>
+  </section>
+
+  <!-- 공지사항 -->
+  <section id="notice" class="tab-content" style="display:none;">
+    <h2>공지사항</h2>
+    <div class="notice-list" id="notice-list">
+      <div class="notice-item">
+        <div class="notice-header" onclick="toggleNotice(this)">
+          <span>📢 신규 지역 서비스 확장 안내</span>
+          <span class="plus-icon">+</span>
+        </div>
+        <div class="notice-content">
+          전국 출장 테라피 네트워크가 2025년 12월부터 강원, 제주 지역 서비스도 오픈합니다.
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-header" onclick="toggleNotice(this)">
+          <span>✨ 신규 테라피스트 모집 공고</span>
+          <span class="plus-icon">+</span>
+        </div>
+        <div class="notice-content">
+          전국 주요 도시에 힐링 전문가를 모집하고 있습니다. 지원은 고객센터 또는 이메일로 문의해주세요.
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-header" onclick="toggleNotice(this)">
+          <span>🕒 예약 시스템 점검 안내</span>
+          <span class="plus-icon">+</span>
+        </div>
+        <div class="notice-content">
+          2025년 11월 10일 새벽 2시부터 4시까지 시스템 점검으로 인해 예약이 일시 중단됩니다.
+        </div>
+      </div>
+    </div>
   </section>
 
   <footer>
@@ -138,29 +253,30 @@
   </footer>
 
   <script>
+    // 탭 전환
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+      document.getElementById(tabId).style.display = 'block';
+      document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // 공지사항 아코디언
+    function toggleNotice(header) {
+      const item = header.parentElement;
+      item.classList.toggle('active');
+    }
+
+    // 지역 & 테라피스트 로직
     const regions = {
       "서울": ["강남", "서초", "마포", "송파", "종로"],
       "경기": ["수원", "안양", "안산", "용인", "성남"],
-      "인천": ["남동", "연수", "부평", "계양"],
-      "부산": ["해운대", "수영", "남구", "연제"],
-      "대구": ["수성", "중구", "달서", "북구"],
-      "대전": ["유성", "서구", "중구"],
-      "광주": ["북구", "서구", "남구"],
-      "울산": ["남구", "중구", "동구"],
-      "세종": ["조치원", "어진", "고운"],
-      "강원": ["춘천", "원주", "강릉"],
-      "충북": ["청주", "충주", "제천"],
-      "충남": ["천안", "공주", "아산"],
+      "부산": ["해운대", "남구", "수영", "연제"],
       "전북": ["전주", "군산", "익산"],
-      "전남": ["여수", "순천", "목포"],
-      "경북": ["포항", "구미", "경주"],
-      "경남": ["창원", "진주", "김해"],
       "제주": ["제주시", "서귀포"]
     };
 
     const profiles = {};
-
-    // 임시 가짜 프로필 자동 생성
     Object.keys(regions).forEach(region => {
       regions[region].forEach(sub => {
         profiles[sub] = Array.from({ length: 3 }, (_, i) => ({
@@ -178,6 +294,7 @@
     Object.keys(regions).forEach(region => {
       const btn = document.createElement("button");
       btn.textContent = region;
+      btn.className = "region";
       btn.onclick = () => showSubregions(region);
       regionList.appendChild(btn);
 
@@ -188,6 +305,7 @@
       regions[region].forEach(sub => {
         const sbtn = document.createElement("button");
         sbtn.textContent = sub;
+        sbtn.className = "subregion";
         sbtn.onclick = () => showProfiles(sub);
         subDiv.appendChild(sbtn);
       });
